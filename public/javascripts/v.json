@@ -1,0 +1,653 @@
+{
+    "status": 200,
+    "total": 52,
+    "hour": 22,
+    "minute": 27,
+    "isCheck": 0,
+    "vList": [
+        {
+            "FieldID": "2149",
+            "FieldName": "1号场地"
+        },
+        {
+            "FieldID": "2150",
+            "FieldName": "2号场地"
+        },
+        {
+            "FieldID": "2151",
+            "FieldName": "3号场地"
+        },
+        {
+            "FieldID": "2152",
+            "FieldName": "4号场地"
+        }
+    ],
+    "tList": [
+        {
+            "StartTime": "9",
+            "EndTime": "10"
+        },
+        {
+            "StartTime": "10",
+            "EndTime": "11"
+        },
+        {
+            "StartTime": "11",
+            "EndTime": "12"
+        },
+        {
+            "StartTime": "12",
+            "EndTime": "13"
+        },
+        {
+            "StartTime": "13",
+            "EndTime": "14"
+        },
+        {
+            "StartTime": "14",
+            "EndTime": "15"
+        },
+        {
+            "StartTime": "15",
+            "EndTime": "16"
+        },
+        {
+            "StartTime": "16",
+            "EndTime": "17"
+        },
+        {
+            "StartTime": "17",
+            "EndTime": "18"
+        },
+        {
+            "StartTime": "18",
+            "EndTime": "19"
+        },
+        {
+            "StartTime": "19",
+            "EndTime": "20"
+        },
+        {
+            "StartTime": "20",
+            "EndTime": "21"
+        },
+        {
+            "StartTime": "21",
+            "EndTime": "22"
+        }
+    ],
+    "data": [
+        {
+            "FieldId": 2149,
+            "PlanDetailId": 9776,
+            "FieldName": "1号场地",
+            "StartTime": 10,
+            "EndTime": 11,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "2bb8580a81aab14798bdbeeb30beebf0"
+        },
+        {
+            "FieldId": 2149,
+            "PlanDetailId": 9786,
+            "FieldName": "1号场地",
+            "StartTime": 20,
+            "EndTime": 21,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "98c7fdbcc97c2c7f1b9d72012bf0acb0"
+        },
+        {
+            "FieldId": 2149,
+            "PlanDetailId": 9781,
+            "FieldName": "1号场地",
+            "StartTime": 15,
+            "EndTime": 16,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "109d806fbf9bde42275c4a2b3eef5118"
+        },
+        {
+            "FieldId": 2149,
+            "PlanDetailId": 9785,
+            "FieldName": "1号场地",
+            "StartTime": 19,
+            "EndTime": 20,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "238e9daae775637459fbd56b56509b1c"
+        },
+        {
+            "FieldId": 2149,
+            "PlanDetailId": 9783,
+            "FieldName": "1号场地",
+            "StartTime": 17,
+            "EndTime": 18,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "9dc6d060547d055897b8e95f9c641347"
+        },
+        {
+            "FieldId": 2149,
+            "PlanDetailId": 9778,
+            "FieldName": "1号场地",
+            "StartTime": 12,
+            "EndTime": 13,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "00eaa8ff10f96b07e4a017d79eb17da0"
+        },
+        {
+            "FieldId": 2149,
+            "PlanDetailId": 9782,
+            "FieldName": "1号场地",
+            "StartTime": 16,
+            "EndTime": 17,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "3978833b20bfa18b42ba50298b45dfd2"
+        },
+        {
+            "FieldId": 2149,
+            "PlanDetailId": 9780,
+            "FieldName": "1号场地",
+            "StartTime": 14,
+            "EndTime": 15,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "076d0c8acc5e74a2a145c2e5de384539"
+        },
+        {
+            "FieldId": 2149,
+            "PlanDetailId": 9775,
+            "FieldName": "1号场地",
+            "StartTime": 9,
+            "EndTime": 10,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "e75cb303789e9dd7deaa2ed763ef1893"
+        },
+        {
+            "FieldId": 2149,
+            "PlanDetailId": 9787,
+            "FieldName": "1号场地",
+            "StartTime": 21,
+            "EndTime": 22,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "13dece2505710274ceae4cfab52ede99"
+        },
+        {
+            "FieldId": 2149,
+            "PlanDetailId": 9779,
+            "FieldName": "1号场地",
+            "StartTime": 13,
+            "EndTime": 14,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "46a9727fd86f2e0cdfd876af62e601aa"
+        },
+        {
+            "FieldId": 2149,
+            "PlanDetailId": 9777,
+            "FieldName": "1号场地",
+            "StartTime": 11,
+            "EndTime": 12,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "e3a2c9e30dcbf26b33e79869b1790840"
+        },
+        {
+            "FieldId": 2149,
+            "PlanDetailId": 9784,
+            "FieldName": "1号场地",
+            "StartTime": 18,
+            "EndTime": 19,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "dc6be575e1f4b2556188dc3598640ba8"
+        },
+        {
+            "FieldId": 2150,
+            "PlanDetailId": 9780,
+            "FieldName": "2号场地",
+            "StartTime": 14,
+            "EndTime": 15,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "c5cb99dd0b7a6cae0be9e856859e1dbc"
+        },
+        {
+            "FieldId": 2150,
+            "PlanDetailId": 9785,
+            "FieldName": "2号场地",
+            "StartTime": 19,
+            "EndTime": 20,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "1b76d379b9ea18273029c4ae118e99d0"
+        },
+        {
+            "FieldId": 2150,
+            "PlanDetailId": 9775,
+            "FieldName": "2号场地",
+            "StartTime": 9,
+            "EndTime": 10,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "c812ddfca6f6acfd15550205e12c7d95"
+        },
+        {
+            "FieldId": 2150,
+            "PlanDetailId": 9787,
+            "FieldName": "2号场地",
+            "StartTime": 21,
+            "EndTime": 22,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "004795a307deec6be8f8f38a37c95276"
+        },
+        {
+            "FieldId": 2150,
+            "PlanDetailId": 9783,
+            "FieldName": "2号场地",
+            "StartTime": 17,
+            "EndTime": 18,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "5746f3a6212c4169dd698bc94f0fc5bd"
+        },
+        {
+            "FieldId": 2150,
+            "PlanDetailId": 9778,
+            "FieldName": "2号场地",
+            "StartTime": 12,
+            "EndTime": 13,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "2983829eee23c775646745118ac1efbe"
+        },
+        {
+            "FieldId": 2150,
+            "PlanDetailId": 9776,
+            "FieldName": "2号场地",
+            "StartTime": 10,
+            "EndTime": 11,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "afb47dbf7d3eeebcb8b5d1dc13c410c3"
+        },
+        {
+            "FieldId": 2150,
+            "PlanDetailId": 9779,
+            "FieldName": "2号场地",
+            "StartTime": 13,
+            "EndTime": 14,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "d90b74d407b01b5bf1609fc0a461826d"
+        },
+        {
+            "FieldId": 2150,
+            "PlanDetailId": 9781,
+            "FieldName": "2号场地",
+            "StartTime": 15,
+            "EndTime": 16,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "7811ae742f1f9fa0a93aec5194ddd575"
+        },
+        {
+            "FieldId": 2150,
+            "PlanDetailId": 9777,
+            "FieldName": "2号场地",
+            "StartTime": 11,
+            "EndTime": 12,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "04184dc87ff35b87085ba27d07eb40cf"
+        },
+        {
+            "FieldId": 2150,
+            "PlanDetailId": 9786,
+            "FieldName": "2号场地",
+            "StartTime": 20,
+            "EndTime": 21,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "da36f9a9ed0396ccd0f3f34fef470d80"
+        },
+        {
+            "FieldId": 2150,
+            "PlanDetailId": 9782,
+            "FieldName": "2号场地",
+            "StartTime": 16,
+            "EndTime": 17,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "4387e5f421268b30fc09f64298c02449"
+        },
+        {
+            "FieldId": 2150,
+            "PlanDetailId": 9784,
+            "FieldName": "2号场地",
+            "StartTime": 18,
+            "EndTime": 19,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "2d594bad42091124f19256f9ee41a43a"
+        },
+        {
+            "FieldId": 2151,
+            "PlanDetailId": 9780,
+            "FieldName": "3号场地",
+            "StartTime": 14,
+            "EndTime": 15,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "115066c69eef44ee6d012c84d9f16755"
+        },
+        {
+            "FieldId": 2151,
+            "PlanDetailId": 9785,
+            "FieldName": "3号场地",
+            "StartTime": 19,
+            "EndTime": 20,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "ae3a15f52cbf787f6c21478f98b576c6"
+        },
+        {
+            "FieldId": 2151,
+            "PlanDetailId": 9778,
+            "FieldName": "3号场地",
+            "StartTime": 12,
+            "EndTime": 13,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "a1efc6e3eb516dc841bb0c792a64aa47"
+        },
+        {
+            "FieldId": 2151,
+            "PlanDetailId": 9782,
+            "FieldName": "3号场地",
+            "StartTime": 16,
+            "EndTime": 17,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "538ae0271a7c825efe8da15dfaceb04c"
+        },
+        {
+            "FieldId": 2151,
+            "PlanDetailId": 9775,
+            "FieldName": "3号场地",
+            "StartTime": 9,
+            "EndTime": 10,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "ce51835bf19c60925cdfa3537b1c1d41"
+        },
+        {
+            "FieldId": 2151,
+            "PlanDetailId": 9787,
+            "FieldName": "3号场地",
+            "StartTime": 21,
+            "EndTime": 22,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "ee05aea88825ea7a5e0bd51d9683ffe7"
+        },
+        {
+            "FieldId": 2151,
+            "PlanDetailId": 9777,
+            "FieldName": "3号场地",
+            "StartTime": 11,
+            "EndTime": 12,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "2d036a8c7a191ba2818df0900f4c2102"
+        },
+        {
+            "FieldId": 2151,
+            "PlanDetailId": 9786,
+            "FieldName": "3号场地",
+            "StartTime": 20,
+            "EndTime": 21,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "85a5037f6d32ebc9e0c55d3fe7cecee9"
+        },
+        {
+            "FieldId": 2151,
+            "PlanDetailId": 9779,
+            "FieldName": "3号场地",
+            "StartTime": 13,
+            "EndTime": 14,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "a790a227f6866505f6e48875d05eade7"
+        },
+        {
+            "FieldId": 2151,
+            "PlanDetailId": 9784,
+            "FieldName": "3号场地",
+            "StartTime": 18,
+            "EndTime": 19,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "b9b9c6f60931b0ed6e089847fdec91ca"
+        },
+        {
+            "FieldId": 2151,
+            "PlanDetailId": 9776,
+            "FieldName": "3号场地",
+            "StartTime": 10,
+            "EndTime": 11,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "c3489915b02a2353001b80863841c3b7"
+        },
+        {
+            "FieldId": 2151,
+            "PlanDetailId": 9781,
+            "FieldName": "3号场地",
+            "StartTime": 15,
+            "EndTime": 16,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "3e624ac1cbe49edc537c1602e286ed09"
+        },
+        {
+            "FieldId": 2151,
+            "PlanDetailId": 9783,
+            "FieldName": "3号场地",
+            "StartTime": 17,
+            "EndTime": 18,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "eb0b9fbacfe1ad9a46a0e5d7298f324c"
+        },
+        {
+            "FieldId": 2152,
+            "PlanDetailId": 9779,
+            "FieldName": "4号场地",
+            "StartTime": 13,
+            "EndTime": 14,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "fdbf2bc5fe0d64c498e27311f1471d5c"
+        },
+        {
+            "FieldId": 2152,
+            "PlanDetailId": 9784,
+            "FieldName": "4号场地",
+            "StartTime": 18,
+            "EndTime": 19,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "f9f5bf49e74e86c9462108dd663d1d11"
+        },
+        {
+            "FieldId": 2152,
+            "PlanDetailId": 9777,
+            "FieldName": "4号场地",
+            "StartTime": 11,
+            "EndTime": 12,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "f08f064a2430b17ee22f97f7785f2156"
+        },
+        {
+            "FieldId": 2152,
+            "PlanDetailId": 9780,
+            "FieldName": "4号场地",
+            "StartTime": 14,
+            "EndTime": 15,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "d916e896fdf8980d86e15dc76a052421"
+        },
+        {
+            "FieldId": 2152,
+            "PlanDetailId": 9782,
+            "FieldName": "4号场地",
+            "StartTime": 16,
+            "EndTime": 17,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "25d086c1887f88a86e0e51e96faa2723"
+        },
+        {
+            "FieldId": 2152,
+            "PlanDetailId": 9775,
+            "FieldName": "4号场地",
+            "StartTime": 9,
+            "EndTime": 10,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "fc2fb5087b7b68d05c025972f645af0f"
+        },
+        {
+            "FieldId": 2152,
+            "PlanDetailId": 9787,
+            "FieldName": "4号场地",
+            "StartTime": 21,
+            "EndTime": 22,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "3aa8344bc9a666ae9941ecb52bd8d5a3"
+        },
+        {
+            "FieldId": 2152,
+            "PlanDetailId": 9776,
+            "FieldName": "4号场地",
+            "StartTime": 10,
+            "EndTime": 11,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "8d73e00925ce6cdfa8058c43d03f735e"
+        },
+        {
+            "FieldId": 2152,
+            "PlanDetailId": 9785,
+            "FieldName": "4号场地",
+            "StartTime": 19,
+            "EndTime": 20,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "37069f961d53dc5b2775098768572dc2"
+        },
+        {
+            "FieldId": 2152,
+            "PlanDetailId": 9778,
+            "FieldName": "4号场地",
+            "StartTime": 12,
+            "EndTime": 13,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "4eab4345a8802fdf9896f96806cbd402"
+        },
+        {
+            "FieldId": 2152,
+            "PlanDetailId": 9783,
+            "FieldName": "4号场地",
+            "StartTime": 17,
+            "EndTime": 18,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "efc3544ef8770961858c03fd69b717c9"
+        },
+        {
+            "FieldId": 2152,
+            "PlanDetailId": 9781,
+            "FieldName": "4号场地",
+            "StartTime": 15,
+            "EndTime": 16,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 30,
+            "sign": "6a114940d24f47a61fa1d9ccb1e5fd5b"
+        },
+        {
+            "FieldId": 2152,
+            "PlanDetailId": 9786,
+            "FieldName": "4号场地",
+            "StartTime": 20,
+            "EndTime": 21,
+            "ReserveStatus": 0,
+            "LockID": 0,
+            "Price": 50,
+            "sign": "58ca3f43464224ec8a6f0fe1bb52994e"
+        }
+    ]
+}

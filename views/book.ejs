@@ -1,0 +1,182 @@
+<%- include header %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0050)http://ball.damai.cn/VenuePlan_581.html#2014-04-08 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>场地预定</title>
+
+<!--script src="/javascripts/base.js"></script-->
+<link rel="stylesheet" type="text/css" href="/stylesheets/public-min.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/index.css">
+<script src="/javascripts/plan.js"></script>
+</head>
+<body ryt13114="1">
+<div id="popup-c-rt"></div>
+<!--内容区 beign-->
+<div class="index_w bottom_padding">
+  <!--价格选定及场次 beign-->
+  <div class="b_index02">
+    <!--价格选定 begin-->
+    <input type="hidden" class="choose-day-time" id="choose-day-time" value="<%=choose_date_time%>" mindate="2014-04-06" maxdate="2014-04-12"><input type="hidden" id="VenueID" name="VenueID" value="1">
+    <div class="cost">
+      <div class="play_date">
+        <!--class="active"为可点时状态-->
+                <div class="date_con">
+          <ul id="dts"><%-book_show_content%></ul>
+        </div>
+      </div>
+      <div class="icon_mean">
+       <ul>
+        <li><span class="col1"></span>空闲场地</li>
+        <li><span class="col2"></span>选中</li>
+        <li><span class="col3"></span>已售出</li>
+       </ul>
+      </div>
+      <div class="price_talbe" id="planBox">
+      <div class="select-fail" id="noplan" style="display:none;">
+      <p>矮油，您选择的日期没有场地可预订了，<br />要不您重新选择日期或球馆再试试看~~<br />感谢您对大麦网的支持。</p>
+      </div>
+      <div class="ball-loading" id="load"></div>
+      <div class="table_in" id="hasplan">
+      <dl class="p_dl1" id="venueList"></dl>
+      <div id="dataList"></div>
+      </div>
+
+
+      </div>
+      <div class="btn_slide" id="btn_slide" style="display: none;"><a href="javascript:void(0)" class="slide">全部显示</a></div>
+      <div class="price_txt">
+        <dl>
+            <dt>售前提示：</dt><dd>1. 订单提交后请在15分钟内完成支付，超时系统将无法保留所选场次。支付成功后，您将在15分钟内收到验证码短信，请凭此验证码验票入场，请妥善保管。接收短信完全免费。 所订场次一经售出，不退不换，请务必按时到场。</dd>
+<dd>2. 用户在预订球馆的场次后，由于不可抗力因素（包括政府行为等）造成运动场地不能按照预订时间使用的，应用户要求，网将为用户全额退还未消费部分的款项。如遇场地预订冲突等突发情况，会尽量与球馆进行场地协调,以满足用户需求，但不承担由此而给用户造成的其他损失。</dd>
+<dd>3. 用户因在球馆受到意外伤害或运动损伤的，运动场不承担责任。</dd>
+        </dl>
+        <dl>
+            <dt>支付方式</dt>
+            <dd>支付宝</dd>
+        </dl>
+      </div>
+    </div>
+    <!--价格选定 end-->
+    <!--场次 begin-->
+    <div class="session">
+      <h2>已选场次</h2>
+      <div class="se_mean" id="nocart" style="display: none;">
+        <p>点击左侧<span>框</span>选择场次，再次点击取消选择。 每笔订单最多可选择6个场次，所有场次预订成功后将不予退换。</p>
+      </div>
+      <div class="se_order">
+        <ul class="order_ul" id="shoppingCart"></ul>
+      </div>
+      <div class="se_checked"><p class="fl">已选<span id="totalCount">0</span>个场地</p><p class="fr">共计<span id="cartTotalAmount">0</span>元</p></div>
+      <div class="se_code"><input type="text" value="请输入验证码" maxlength="6" name="vCode" id="vCode"><img alt="点击更换验证码" src="/VerifyShow.aspx" id="checkCode"></div>
+      <div class="modal-footer"><button class="btn btn-primary" type="submit" onclick="return submitOrder();">提交订单</button></div>
+    </div>
+    <!--场次 end-->
+  </div>
+  <!--价格选定及场次 end-->
+</div>  
+<!--内容区 end-->
+
+
+
+
+
+<style type="text/css" id="t1776el" class="jeok5c">
+    .k1i2uxp {
+            border-radius:2px;
+            box-shadow:0 0 7px rgba(0,0,0,0.4);
+            position:absolute;
+            top:376px;
+            left:404px;
+            margin-bottom:100px;
+            background:#fff;
+            z-index:2147483647;
+            display:none;
+            font:14px/1.5 arial,\5b8b\4f53,sans-serif;
+    }
+    
+    .k1i2uxp .fal7pc {}
+
+    .k1i2uxp .jcigyi {
+        background:#fff;
+        position:absolute;
+        height:8px;
+        width:8px;
+        margin-left:-3px;
+        -webkit-transform:rotate(45deg);
+        transform:rotate(45deg);
+        left:20%;
+    }
+    
+    .k1i2uxp.j1qq4f7 .jcigyi {
+        box-shadow : -1px -1px 2px rgba(0, 0, 0,0.4);
+        top:-5px;    
+    }
+    
+    .k1i2uxp.jn3c1r .jcigyi {
+        bottom:-5px;
+        box-shadow : 1px 1px 2px rgba(0, 0, 0,0.4);
+    }
+    
+    .k1i2uxp.l11174s .jcigyi{
+        left:50%;
+    }
+    
+    .h183g3o {
+        font-style:normal;
+        font-size:22px;
+        position:relative;
+        top:4px;
+    }
+    
+    .lonca8 {
+        width:182px;
+        padding:20px;
+        font-size:14px;
+    }
+    
+    .lonca8 .gx3idk {
+        text-decoration:none;
+        font-size:12px;
+        color:#999;
+        float:right;    
+        position:relative;
+        top:7px;
+    }
+    
+    .fal7pc {
+        overflow:hidden;
+    }
+    
+    .gx3idk:hover {
+        color:#1e90ff;
+    }
+    
+    .l22stni {
+            width:120px;
+            height:152px;
+            padding:20px;
+    }
+    .l22stni .o204tyg {
+             margin-bottom:10px;
+    }
+    
+    .l22stni .fal7pc span{
+        color:red;
+    }
+</style>
+
+</body></html>
+<script>
+$(function(){
+    $("#dataList" > a).click(function(){
+        alert(1);
+    });
+});
+</script>
+
+
+<%- include footer %>
+

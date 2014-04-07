@@ -1,0 +1,177 @@
+<%- include header %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0050)http://ball.damai.cn/VenuePlan_581.html#2014-04-08 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>场地预定</title>
+
+<link rel="stylesheet" type="text/css" href="/stylesheets/public-min.css">
+<!--link rel="stylesheet" type="text/css" href="/stylesheets/jquery-ui.min.css"-->
+<link rel="stylesheet" type="text/css" href="/stylesheets/index.css">
+<script src="/javascripts/plan.js"></script>
+</head>
+<body ryt13114="1">
+<div id="popup-c-rt"></div>
+<!--内容区 beign-->
+<div class="index_w bottom_padding">
+  <!--价格选定及场次 beign-->
+  <div class="b_index02">
+    <!--价格选定 begin-->
+    <input type="hidden" class="choose-day-time" id="choose-day-time" value="<%=choose_date_time%>" mindate="2014-04-06" maxdate="2014-04-12"><input type="hidden" id="VenueID" name="VenueID" value="1">
+    <div class="cost">
+      <div class="play_date">
+        <!--class="active"为可点时状态-->
+                <div class="date_con">
+          <ul id="dts"><%-book_show_content%></ul>
+        </div>
+      </div>
+      <div class="icon_mean">
+       <ul>
+        <li><span class="col1"></span>空闲场地</li>
+        <li><span class="col2"></span>选中</li>
+        <li><span class="col3"></span>已售出</li>
+       </ul>
+      </div>
+      <div class="price_talbe" id="planBox">
+
+          <div class="ball-loading" id="load" style="display: none;"></div>
+        <div class="table_in" id="hasplan" style="display: block;">
+          <dl class="p_dl1" id="venueList"><dt class="table_title">场地/时间</dt><dd>1号场地</dd><dd>2号场地</dd><dd>3号场地</dd><dd>4号场地</dd></dl>
+          <div id="dataList"><dl><dt>9:00</dt><dd vid="2149" s="9" e="10"><a href="javascript:void(0)" date="2014-04-05" planid="10419" filed="1号场地" vid="2149" price="50" s="9" e="10" onclick="ConfrimSelect($(this));" sign="e7fa31bc34ca5b1b6c3d09231b628654"  title="9:00-10:00 1号场地 50元">50</a></dd><dd vid="2150" s="9" e="10"><a href="javascript:void(0)" date="2014-04-05" planid="10419" filed="2号场地" vid="2150" price="50" s="9" e="10" sign="f6fdd99d97ea9ee4e5571069558a8cba"  title="9:00-10:00 2号场地 50元">50</a></dd><dd vid="2151" s="9" e="10"><a href="javascript:void(0)" date="2014-04-05" planid="10419" filed="3号场地" vid="2151" price="50" s="9" e="10" sign="06d78d8b64d3785196fc1d47d6c6b828"  title="9:00-10:00 3号场地 50元">50</a></dd><dd vid="2152" s="9" e="10"><a href="javascript:void(0)" date="2014-04-05" planid="10419" filed="4号场地" vid="2152" price="50" s="9" e="10" sign="2f26540e6a91cd6116d7ab751bf01964"  title="9:00-10:00 4号场地 50元">50</a></dd></dl><dl><dt>10:00</dt><dd vid="2149" s="10" e="11"><a href="javascript:void(0)" date="2014-04-05" planid="10420" filed="1号场地" vid="2149" price="50" s="10" e="11" sign="6851fde6b13653a822fbb3403e9769fb"  title="10:00-11:00 1号场地 50元">50</a></dd><dd vid="2150" s="10" e="11"><a href="javascript:void(0)" date="2014-04-05" planid="10420" filed="2号场地" vid="2150" price="50" s="10" e="11" sign="e1733903ea8f0408d75a8a35a5185d0c"  title="10:00-11:00 2号场地 50元">50</a></dd><dd vid="2151" s="10" e="11"><a href="javascript:void(0)" date="2014-04-05" planid="10420" filed="3号场地" vid="2151" price="50" s="10" e="11" sign="462d4ffe1be6793696d69792129900de"  title="10:00-11:00 3号场地 50元">50</a></dd><dd vid="2152" s="10" e="11"><a href="javascript:void(0)" date="2014-04-05" planid="10420" filed="4号场地" vid="2152" price="50" s="10" e="11" sign="1e6570b51192870d122b6b0ccd077129"  title="10:00-11:00 4号场地 50元">50</a></dd></dl><dl><dt>11:00</dt><dd vid="2149" s="11" e="12"><a href="javascript:void(0)" date="2014-04-05" planid="10421" filed="1号场地" vid="2149" price="50" s="11" e="12" sign="8987ca7d5561bac915d6cbd2811e2669"  title="11:00-12:00 1号场地 50元">50</a></dd><dd vid="2150" s="11" e="12"><a href="javascript:void(0)" date="2014-04-05" planid="10421" filed="2号场地" vid="2150" price="50" s="11" e="12" sign="e321378e8bf959d4e9e982c76f56c3fc"  title="11:00-12:00 2号场地 50元">50</a></dd><dd vid="2151" s="11" e="12"><a href="javascript:void(0)" date="2014-04-05" planid="10421" filed="3号场地" vid="2151" price="50" s="11" e="12" sign="d7a17bd6c97406aeea2cfb8821cfaf85"  title="11:00-12:00 3号场地 50元">50</a></dd><dd vid="2152" s="11" e="12"><a href="javascript:void(0)" date="2014-04-05" planid="10421" filed="4号场地" vid="2152" price="50" s="11" e="12" sign="1e11616865021bff8d3d611b9c9486f4"  title="11:00-12:00 4号场地 50元">50</a></dd></dl><dl><dt>12:00</dt><dd vid="2149" s="12" e="13"><a href="javascript:void(0)" date="2014-04-05" planid="10422" filed="1号场地" vid="2149" price="50" s="12" e="13" sign="ffceab4197789dd796939a479bb7703f"  title="12:00-13:00 1号场地 50元">50</a></dd><dd vid="2150" s="12" e="13"><a href="javascript:void(0)" date="2014-04-05" planid="10422" filed="2号场地" vid="2150" price="50" s="12" e="13" sign="e3e2a6e6eb4c70c4c1883d9fdd431675"  title="12:00-13:00 2号场地 50元">50</a></dd><dd vid="2151" s="12" e="13"><a href="javascript:void(0)" date="2014-04-05" planid="10422" filed="3号场地" vid="2151" price="50" s="12" e="13" sign="f6211ff5553f32c89dd1848f9c990ee7"  title="12:00-13:00 3号场地 50元">50</a></dd><dd vid="2152" s="12" e="13"><a href="javascript:void(0)" date="2014-04-05" planid="10422" filed="4号场地" vid="2152" price="50" s="12" e="13" sign="5862d74bdeddf447bd262862f317c2e0"  title="12:00-13:00 4号场地 50元">50</a></dd></dl><dl><dt>13:00</dt><dd vid="2149" s="13" e="14"><a href="javascript:void(0)" date="2014-04-05" planid="10423" filed="1号场地" vid="2149" price="50" s="13" e="14" sign="05db2c6b0b04852c9a99456cda742df1"  title="13:00-14:00 1号场地 50元">50</a></dd><dd vid="2150" s="13" e="14"><a href="javascript:void(0)" date="2014-04-05" planid="10423" filed="2号场地" vid="2150" price="50" s="13" e="14" sign="db0f130557cba57194a80a084aab5ad8"  title="13:00-14:00 2号场地 50元">50</a></dd><dd vid="2151" s="13" e="14"><a href="javascript:void(0)" date="2014-04-05" planid="10423" filed="3号场地" vid="2151" price="50" s="13" e="14" sign="a185e6f1c4772b84a7c9a605c1c1cb0c"  title="13:00-14:00 3号场地 50元">50</a></dd><dd vid="2152" s="13" e="14"><a href="javascript:void(0)" date="2014-04-05" planid="10423" filed="4号场地" vid="2152" price="50" s="13" e="14" sign="7db3d2b5c05a54871c8e0dcad471d2a8"  title="13:00-14:00 4号场地 50元">50</a></dd></dl><dl><dt>14:00</dt><dd vid="2149" s="14" e="15"><a href="javascript:void(0)" date="2014-04-05" planid="10424" filed="1号场地" vid="2149" price="50" s="14" e="15" sign="6d031c6b563604f8cfc169a46bc7a3f3"  title="14:00-15:00 1号场地 50元" class="choosed">50</a></dd><dd vid="2150" s="14" e="15"><a href="javascript:void(0)" date="2014-04-05" planid="10424" filed="2号场地" vid="2150" price="50" s="14" e="15" sign="a4c7502ff94b227edab8fdc93e459e56"  title="14:00-15:00 2号场地 50元">50</a></dd><dd vid="2151" s="14" e="15"><a href="javascript:void(0)" date="2014-04-05" planid="10424" filed="3号场地" vid="2151" price="50" s="14" e="15" sign="825832bac007278685496fcd7f8134b1"  title="14:00-15:00 3号场地 50元">50</a></dd><dd vid="2152" s="14" e="15"><a href="javascript:void(0)" date="2014-04-05" planid="10424" filed="4号场地" vid="2152" price="50" s="14" e="15" sign="d2cb06f499cdc8a44d8e934bd99adc7a"  title="14:00-15:00 4号场地 50元">50</a></dd></dl><dl><dt>15:00</dt><dd vid="2149" s="15" e="16"><a href="javascript:void(0)" date="2014-04-05" planid="10425" filed="1号场地" vid="2149" price="50" s="15" e="16" sign="914940ac3ae08735f03f3abe66e61760"  title="15:00-16:00 1号场地 50元" class="choosed">50</a></dd><dd vid="2150" s="15" e="16"><a href="javascript:void(0)" date="2014-04-05" planid="10425" filed="2号场地" vid="2150" price="50" s="15" e="16" sign="8176019a31e66ea633bd56ad7457da58"  title="15:00-16:00 2号场地 50元">50</a></dd><dd vid="2151" s="15" e="16"><a href="javascript:void(0)" date="2014-04-05" planid="10425" filed="3号场地" vid="2151" price="50" s="15" e="16" sign="32ae278de42daa49d1e8f730fb6bad73"  title="15:00-16:00 3号场地 50元">50</a></dd><dd vid="2152" s="15" e="16"><a href="javascript:void(0)" date="2014-04-05" planid="10425" filed="4号场地" vid="2152" price="50" s="15" e="16" sign="71ea80e4e17c35416abfe9a30128fd04"  title="15:00-16:00 4号场地 50元">50</a></dd></dl><dl><dt>16:00</dt><dd vid="2149" s="16" e="17"><a href="javascript:void(0)" date="2014-04-05" planid="10426" filed="1号场地" vid="2149" price="50" s="16" e="17" sign="d13f3843e82252855d88876442fca5ce"  title="16:00-17:00 1号场地 50元" class="choosed">50</a></dd><dd vid="2150" s="16" e="17"><a href="javascript:void(0)" date="2014-04-05" planid="10426" filed="2号场地" vid="2150" price="50" s="16" e="17" sign="1e0ca059e0818ee2a68e5ba6a58aca1f"  title="16:00-17:00 2号场地 50元">50</a></dd><dd vid="2151" s="16" e="17"><a href="javascript:void(0)" date="2014-04-05" planid="10426" filed="3号场地" vid="2151" price="50" s="16" e="17" sign="395bfed51790fe916234ee53953a8ba5"  title="16:00-17:00 3号场地 50元">50</a></dd><dd vid="2152" s="16" e="17"><a href="javascript:void(0)" date="2014-04-05" planid="10426" filed="4号场地" vid="2152" price="50" s="16" e="17" sign="dd567da6b5140b07be928e1d28c85866"  title="16:00-17:00 4号场地 50元">50</a></dd></dl><dl><dt>17:00</dt><dd vid="2149" s="17" e="18"><a href="javascript:void(0)" date="2014-04-05" planid="10427" filed="1号场地" vid="2149" price="50" s="17" e="18" sign="031c9fb443c52977a6fb9cf3fe5874ee"  title="17:00-18:00 1号场地 50元">50</a></dd><dd vid="2150" s="17" e="18"><a href="javascript:void(0)" date="2014-04-05" planid="10427" filed="2号场地" vid="2150" price="50" s="17" e="18" sign="a9d719e7bae08d8cf7d3761d2dfbad8d"  title="17:00-18:00 2号场地 50元">50</a></dd><dd vid="2151" s="17" e="18"><a href="javascript:void(0)" date="2014-04-05" planid="10427" filed="3号场地" vid="2151" price="50" s="17" e="18" sign="b9c8c3b842d107e7c99ff4a206cb513e"  title="17:00-18:00 3号场地 50元">50</a></dd><dd vid="2152" s="17" e="18"><a href="javascript:void(0)" date="2014-04-05" planid="10427" filed="4号场地" vid="2152" price="50" s="17" e="18" sign="dd250ed3e08648692051004699cec3fd"  title="17:00-18:00 4号场地 50元">50</a></dd></dl><dl><dt>18:00</dt><dd vid="2149" s="18" e="19"><a href="javascript:void(0)" date="2014-04-05" planid="10428" filed="1号场地" vid="2149" price="50" s="18" e="19" sign="ad426e974cb162a33015914e1d7e0909"  title="18:00-19:00 1号场地 50元" class="choosed">50</a></dd><dd vid="2150" s="18" e="19"><a href="javascript:void(0)" date="2014-04-05" planid="10428" filed="2号场地" vid="2150" price="50" s="18" e="19" sign="80f54dc196335aa6d279d737c48599a1"  title="18:00-19:00 2号场地 50元">50</a></dd><dd vid="2151" s="18" e="19"><a href="javascript:void(0)" date="2014-04-05" planid="10428" filed="3号场地" vid="2151" price="50" s="18" e="19" sign="ac886fe09f58d1b71e428bc0cc60309b"  title="18:00-19:00 3号场地 50元">50</a></dd><dd vid="2152" s="18" e="19"><a href="javascript:void(0)" date="2014-04-05" planid="10428" filed="4号场地" vid="2152" price="50" s="18" e="19" sign="e4710bfecef38a8ac80f0aa919de3354"  title="18:00-19:00 4号场地 50元">50</a></dd></dl><dl><dt>19:00</dt><dd vid="2149" s="19" e="20"><a href="javascript:void(0)" date="2014-04-05" planid="10429" filed="1号场地" vid="2149" price="50" s="19" e="20" sign="3f18f3b54bf5e03b1f433d00a13a9eed"  title="19:00-20:00 1号场地 50元" class="choosed">50</a></dd><dd vid="2150" s="19" e="20"><a href="javascript:void(0)" date="2014-04-05" planid="10429" filed="2号场地" vid="2150" price="50" s="19" e="20" sign="e17255dea66b6ff6599a6e713c9fd6fd"  title="19:00-20:00 2号场地 50元">50</a></dd><dd vid="2151" s="19" e="20"><a href="javascript:void(0)" date="2014-04-05" planid="10429" filed="3号场地" vid="2151" price="50" s="19" e="20" sign="ff7d8ca387eaec66a2e4cedae085d636"  title="19:00-20:00 3号场地 50元">50</a></dd><dd vid="2152" s="19" e="20"><a href="javascript:void(0)" date="2014-04-05" planid="10429" filed="4号场地" vid="2152" price="50" s="19" e="20" sign="e27a0e97614414d71c9625239b808c5c"  title="19:00-20:00 4号场地 50元" class="choosed">50</a></dd></dl><dl><dt>20:00</dt><dd vid="2149" s="20" e="21"><a href="javascript:void(0)" date="2014-04-05" planid="10430" filed="1号场地" vid="2149" price="50" s="20" e="21" sign="9bbf675a1a3d277b02ef36f7150c085a"  title="20:00-21:00 1号场地 50元" class="choosed">50</a></dd><dd vid="2150" s="20" e="21"><a href="javascript:void(0)" date="2014-04-05" planid="10430" filed="2号场地" vid="2150" price="50" s="20" e="21" sign="fbbaac56067bed1c8f79e80bf08d16fb"  title="20:00-21:00 2号场地 50元">50</a></dd><dd vid="2151" s="20" e="21"><a href="javascript:void(0)" date="2014-04-05" planid="10430" filed="3号场地" vid="2151" price="50" s="20" e="21" sign="f7d44dabaa670913734fc9555432d278"  title="20:00-21:00 3号场地 50元">50</a></dd><dd vid="2152" s="20" e="21"><a href="javascript:void(0)" date="2014-04-05" planid="10430" filed="4号场地" vid="2152" price="50" s="20" e="21" sign="06c85a34a3af1d2ffdf3d91f232a921a"  title="20:00-21:00 4号场地 50元">50</a></dd></dl><dl><dt>21:00</dt><dd vid="2149" s="21" e="22"><a href="javascript:void(0)" date="2014-04-05" planid="10431" filed="1号场地" vid="2149" price="50" s="21" e="22" sign="c57c6ca2e6f683034ea43b844414afb9"  title="21:00-22:00 1号场地 50元" class="choosed">50</a></dd><dd vid="2150" s="21" e="22"><a href="javascript:void(0)" date="2014-04-05" planid="10431" filed="2号场地" vid="2150" price="50" s="21" e="22" sign="a20e1f6586f90b11d9a4f79a06fa2481"  title="21:00-22:00 2号场地 50元">50</a></dd><dd vid="2151" s="21" e="22"><a href="javascript:void(0)" date="2014-04-05" planid="10431" filed="3号场地" vid="2151" price="50" s="21" e="22" sign="aafc63fd171c52d4b41370c37c7f2885"  title="21:00-22:00 3号场地 50元">50</a></dd><dd vid="2152" s="21" e="22"><a href="javascript:void(0)" date="2014-04-05" planid="10431" filed="4号场地" vid="2152" price="50" s="21" e="22" sign="6488761519705142fbd73fe20f75ad81"  title="21:00-22:00 4号场地 50元">50</a></dd></dl></div>
+        </div>
+      </div>
+      <div class="btn_slide" id="btn_slide" style="display: none;"><a href="javascript:void(0)" class="slide">全部显示</a></div>
+      <div class="price_txt">
+        <dl>
+            <dt>售前提示：</dt><dd>1. 订单提交后请在15分钟内完成支付，超时系统将无法保留所选场次。支付成功后，您将在15分钟内收到验证码短信，请凭此验证码验票入场，请妥善保管。接收短信完全免费。 所订场次一经售出，不退不换，请务必按时到场。</dd>
+<dd>2. 用户在预订球馆的场次后，由于不可抗力因素（包括政府行为等）造成运动场地不能按照预订时间使用的，应用户要求，网将为用户全额退还未消费部分的款项。如遇场地预订冲突等突发情况，会尽量与球馆进行场地协调,以满足用户需求，但不承担由此而给用户造成的其他损失。</dd>
+<dd>3. 用户因在球馆受到意外伤害或运动损伤的，运动场不承担责任。</dd>
+        </dl>
+        <dl>
+            <dt>支付方式</dt>
+            <dd>支付宝</dd>
+        </dl>
+      </div>
+    </div>
+    <!--价格选定 end-->
+    <!--场次 begin-->
+    <div class="session">
+      <h2>已选场次</h2>
+      <div class="se_mean" id="nocart" style="display: none;">
+        <p>点击左侧<span>框</span>选择场次，再次点击取消选择。 每笔订单最多可选择6个场次，所有场次预订成功后将不予退换。</p>
+      </div>
+      <div class="se_order">
+        <ul class="order_ul" id="shoppingCart"></ul>
+      </div>
+      <div class="se_checked"><p class="fl">已选<span id="totalCount">0</span>个场地</p><p class="fr">共计<span id="cartTotalAmount">0</span>元</p></div>
+      <div class="se_code"><input type="text" value="请输入验证码" maxlength="6" name="vCode" id="vCode"><img alt="点击更换验证码" src="//VerifyShow.aspx" id="checkCode"></div>
+      <button class="public_btn" onclick="return submitOrder();">提交订单</button>
+    </div>
+    <!--场次 end-->
+  </div>
+  <!--价格选定及场次 end-->
+</div>  
+<!--内容区 end-->
+
+
+
+
+
+<style type="text/css" id="t1776el" class="jeok5c">
+    .k1i2uxp {
+            border-radius:2px;
+            box-shadow:0 0 7px rgba(0,0,0,0.4);
+            position:absolute;
+            top:376px;
+            left:404px;
+            margin-bottom:100px;
+            background:#fff;
+            z-index:2147483647;
+            display:none;
+            font:14px/1.5 arial,\5b8b\4f53,sans-serif;
+    }
+    
+    .k1i2uxp .fal7pc {}
+
+    .k1i2uxp .jcigyi {
+        background:#fff;
+        position:absolute;
+        height:8px;
+        width:8px;
+        margin-left:-3px;
+        -webkit-transform:rotate(45deg);
+        transform:rotate(45deg);
+        left:20%;
+    }
+    
+    .k1i2uxp.j1qq4f7 .jcigyi {
+        box-shadow : -1px -1px 2px rgba(0, 0, 0,0.4);
+        top:-5px;    
+    }
+    
+    .k1i2uxp.jn3c1r .jcigyi {
+        bottom:-5px;
+        box-shadow : 1px 1px 2px rgba(0, 0, 0,0.4);
+    }
+    
+    .k1i2uxp.l11174s .jcigyi{
+        left:50%;
+    }
+    
+    .h183g3o {
+        font-style:normal;
+        font-size:22px;
+        position:relative;
+        top:4px;
+    }
+    
+    .lonca8 {
+        width:182px;
+        padding:20px;
+        font-size:14px;
+    }
+    
+    .lonca8 .gx3idk {
+        text-decoration:none;
+        font-size:12px;
+        color:#999;
+        float:right;    
+        position:relative;
+        top:7px;
+    }
+    
+    .fal7pc {
+        overflow:hidden;
+    }
+    
+    .gx3idk:hover {
+        color:#1e90ff;
+    }
+    
+    .l22stni {
+            width:120px;
+            height:152px;
+            padding:20px;
+    }
+    .l22stni .o204tyg {
+             margin-bottom:10px;
+    }
+    
+    .l22stni .fal7pc span{
+        color:red;
+    }
+</style>
+
+</body></html>
+<script>
+$(function(){
+    $("#dataList" > a).click(function(){
+        alert(1);
+    });
+});
+</script>
+
+
+<%- include footer %>
+
