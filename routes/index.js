@@ -14,6 +14,7 @@ module.exports = function(app){
     app.get('/initvenue', booking.initVenue);
     app.get('/book', booking.show);
     app.get('/venue/:venueId', booking.query);
+    app.post('/venue/:venueId', booking.book);
 };
 
 

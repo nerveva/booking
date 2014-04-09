@@ -84,3 +84,23 @@ exports.initVenue = function(req, res) {
 
     res.send('ok');
 };
+
+exports.book = function(req, res) {
+    court.book(req.session.user, req.body.urlParm, function(err, results) {
+        var r = {};
+        if (err) {
+            r["status"] = 400;
+        }
+        else {
+            if (results.sucNum == req.body.urlParm.length) {
+                r["status"] = 201;
+                r["details"] = results.details;
+            }
+            else {
+                r["status"] = 200;
+            }
+            r["url"] = "xx";
+        }
+        res.send(r);
+    });
+}

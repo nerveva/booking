@@ -97,9 +97,6 @@ jQuery(function() {
 });
 
 
-//StringBuilder.prototype.append = function (str) { this.__strings__.push(str); };
-//StringBuilder.prototype.toString = function () { return this.__strings__.join(""); };
-
 function QueryVenueFieldPlanDetail(b, d, c) {
     window.location.hash = d;
     $("#hasplan,#btn_slide,#noplan").hide();
