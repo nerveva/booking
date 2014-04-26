@@ -293,7 +293,7 @@ function submitOrder() {
                         }
                     },
                     error: function(e, g, f) {
-                        alert("系统发生错误：\r\n" + f)
+                        alert("系统发生错误：\r\n" + e.toString() + g.toString() + f.toString())
                     }
                 })
             }

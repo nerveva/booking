@@ -38,7 +38,6 @@ exports.reg = function(req, res){
                 return res.redirect('/reg');//注册失败返回主册页
             }
             req.session.user = user;//用户信息存入 session
-            console.log('用户xxx!');
             req.flash('success', '注册成功!');
             res.redirect('/');//注册成功后返回主页
         });

@@ -13,8 +13,10 @@ module.exports = function(app){
     app.get('/initcourt', court.init);
     app.get('/initvenue', booking.initVenue);
     app.get('/book', booking.show);
+    app.get('/myorders', booking.queryMyOrders);
     app.get('/venue/:venueId', booking.query);
     app.post('/venue/:venueId', booking.book);
+    app.get('/cancel', booking.cancel);
 };
 
 

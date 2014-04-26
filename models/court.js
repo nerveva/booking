@@ -19,12 +19,18 @@ var courtSchema = new mongoose.Schema(cSchema, {
 
 var courtModel = mongoose.model('Court', courtSchema);
 
-exports.book = function(user, orders, callback){
+function Court(user, orders) {
+    this.orders = orders;
+    this.user = user
+}
 
-    res = {
-        sucNum : 0
-    };
-    res.details = new Array();
+Court.prototype.book = function(callback){
+
+    //var res = {};
+    //res.sucNum = 0;
+    //res.details = new Array();
+    //console.log(orders);
+    /*
     for(var i = 0; i < orders.length; ++i) {
         var q = {
             PlanDetailId : orders[i].pid,
@@ -51,11 +57,47 @@ exports.book = function(user, orders, callback){
             }
 
         });
+    }*/
+    var self = this;
+    var t = new Date();
+    var m = {
+        ReserveStatus : 1,
+        LastModifyTime : t.getTime(),
+        LastModifyUser : this.user
     }
-    callback(null, res);
+    courtModel.update({PlanDetailId : {"$in" : this.orders}, ReserveStatus : 0}, m, {multi:true},function(err, numAffected) {
+        if (err) {
+            callback(err);
+        }
+        if (numAffected != self.orders.length) {
+            console.log("N" + numAffected);
+            callback(null, -1);
+        }
+        else {
+            callback(null, 0);
+        }
+    });
 };
 
-exports.query = function(venue, dateTime, callback){
+Court.prototype.rollBack = function(num, callback) {
+    var m = {
+        ReserveStatus : 0,
+        LastModifyUser : ""
+    };
+
+    courtModel.update({PlanDetailId : {"$in" : this.orders}, ReserveStatus : 1, LastModifyUser : this.user}, m, {multi:true}, function(err, numAffected){
+        if (err) {
+            return callback(err);
+        }
+        if (num != numAffected) {
+            return callback(numAffected);
+        }
+
+        return callback(null);
+    });
+};
+
+Court.query = function(venue, dateTime, callback){
     var res = {};
     res["data"] = new Array();
     res["tList"] = new Array();
@@ -95,7 +137,7 @@ exports.query = function(venue, dateTime, callback){
     });
 };
 
-exports.init = function(venue, dateTime, callback){
+Court.init = function(venue, dateTime, callback){
     console.log(venue);
     for(var i = 0; i < venue.FieldList.length; ++i)
     {
@@ -124,3 +166,18 @@ exports.init = function(venue, dateTime, callback){
     callback(null);
 };
 
+Court.cancel = function(user, fieldList, callback) {
+    courtModel.update({PlanDetailId : {"$in" : fieldList}, LastModifyUser : user}, {ReserveStatus : 0}, {multi:true}, function(err, numAffects) {
+        if (err) {
+            return callback(err);
+        }
+
+        /*if (numAffects != fieldList.length) {
+            return callback("Wrong");
+        }*/
+
+        return callback(null);
+    });
+}
+
+module.exports = Court;
