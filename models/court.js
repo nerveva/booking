@@ -1,5 +1,6 @@
 var crypto = require('crypto');
-var mongoose = require('mongoose');
+var pg = require('pg');
+var settings = require('../settings.js');
 
 var cSchema = {
     FieldId : String,
@@ -13,51 +14,8 @@ var cSchema = {
     LastModifyUser : String
 };
 
-var courtSchema = new mongoose.Schema(cSchema, {
-    collection: 'courts'
-});
+exports.book = function(callback){
 
-var courtModel = mongoose.model('Court', courtSchema);
-
-function Court(user, orders) {
-    this.orders = orders;
-    this.user = user
-}
-
-Court.prototype.book = function(callback){
-
-    //var res = {};
-    //res.sucNum = 0;
-    //res.details = new Array();
-    //console.log(orders);
-    /*
-    for(var i = 0; i < orders.length; ++i) {
-        var q = {
-            PlanDetailId : orders[i].pid,
-            _id : orders[i].sign,
-            ReserveStatus : 0
-        }
-
-        var t = new Date();
-        var m = {
-            ReserveStatus : 1,
-            LastModifyTime : t.getTime(),
-            LastModifyUser : user
-        }
-
-        courtModel.update(q, m, function(err, numAffected){
-            if (err) {
-                console.log(err);
-                //return callback(err);
-                res.details.push(-1);
-            }
-            else {
-                res.sucNum++;
-                res.details.push(0);
-            }
-
-        });
-    }*/
     var self = this;
     var t = new Date();
     var m = {
@@ -79,25 +37,7 @@ Court.prototype.book = function(callback){
     });
 };
 
-Court.prototype.rollBack = function(num, callback) {
-    var m = {
-        ReserveStatus : 0,
-        LastModifyUser : ""
-    };
-
-    courtModel.update({PlanDetailId : {"$in" : this.orders}, ReserveStatus : 1, LastModifyUser : this.user}, m, {multi:true}, function(err, numAffected){
-        if (err) {
-            return callback(err);
-        }
-        if (num != numAffected) {
-            return callback(numAffected);
-        }
-
-        return callback(null);
-    });
-};
-
-Court.query = function(venue, dateTime, callback){
+exports.query = function(venue, dateTime, callback){
     var res = {};
     res["data"] = new Array();
     res["tList"] = new Array();
@@ -137,47 +77,51 @@ Court.query = function(venue, dateTime, callback){
     });
 };
 
-Court.init = function(venue, dateTime, callback){
-    console.log(venue);
-    for(var i = 0; i < venue.FieldList.length; ++i)
-    {
-        for(var j = venue.StartTime; j < venue.EndTime - 1; ++j){
-            var court = {
-                FieldId : venue.FieldList[i],
-                PlanDetailId : dateTime + "-" + venue.FieldList[i] + "-" + j,
-                StartTime : j,
-                EndTime : j + 1,
-                ReserveStatus : 0,
-                Price : venue.PricePolicy.BasePrice,
-                DateTime : dateTime,
-                LastModifyTime : 0,
-                LastModifyUser : ""
-            };
-
-            var newCourt = new courtModel(court);
-            newCourt.save(function(err, court){
-                if (err){
-                    console.log(err);
-                    return callback(err);
-                }
-            });
-        };
-    };
-    callback(null);
-};
-
-Court.cancel = function(user, fieldList, callback) {
-    courtModel.update({PlanDetailId : {"$in" : fieldList}, LastModifyUser : user}, {ReserveStatus : 0}, {multi:true}, function(err, numAffects) {
+exports.init = function(venue, dateTime, callback){
+    pg.connect(settings.psqldb, function(err, client, done) {
         if (err) {
+            done(client);
+            console.log(err);
             return callback(err);
         }
 
-        /*if (numAffects != fieldList.length) {
-            return callback("Wrong");
-        }*/
+        var queryStr = "insert into " + 
+                       settings.court_table + 
+                       " (court_id, start_time, end_time, status, price, date_time) values ";
+        var values = "";
+        for(var i = 0; i < venue.FieldList.length; ++i){
+            for(var j = venue.StartTime; j < venue.EndTime - 1; ++j){
+                values += "(" +venue.FieldList[i] + "," + j + "," + (j + 1).toString() + ",0," + venue.PricePolicy.BasePrice + ",'" + dateTime + "'),";
+            };
+        };
+        console.log(queryStr  + values.substr(0, values.length-1));
 
-        return callback(null);
+        client.query(queryStr  + values.substr(0, values.length-1), function(err, result) {
+            done(client);
+            return callback(err);
+        });
+    });
+};
+
+exports.cancel = function(user, fieldList, callback) {
+    pg.connect(settings.psqldb, function(err, client, done) {
+        if (err) {
+            done(client);
+            console.log(err);
+            return callback(err);
+        }
+
+        var fields = "(";
+        for (var f in fieldList) {
+            fields += f + ",";
+        }
+        fields = fields.substr(fields.length - 1) + ")";
+
+        var queryStr = "update " + settings.court_table + " set status=0 where last_user='" + user +"' and plan_id in " + fields;
+        client.query(queryStr, function(err, result) {
+            done(client);
+            return callback(err);
+        });
+        
     });
 }
-
-module.exports = Court;
