@@ -14,7 +14,15 @@
     <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/stylesheets/jumbotron.css" rel="stylesheet">
+    <link href="/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <!--link href="/stylesheets/jumbotron.css" rel="stylesheet"-->
+    <link href="/stylesheets/style-metro.css" rel="stylesheet" type="text/css"/>
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/stylesheets/style-responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="/stylesheets/uniform.default.css" rel="stylesheet" type="text/css"/>
+
+    <link href="/stylesheets/DT_bootstrap.css" rel="stylesheet" type="text/css"/>
+
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -52,13 +60,12 @@
             <% } else { %>
             <ul class="nav navbar-nav  navbar-right">
                 <!--li class="active"><a href="/book">预定</a></li-->
-                <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">预定<b class="caret"></b></a>
-                <ul class="dropdown-menu">
+                <!--li class="dropdown"-->
+                <!--ul class="dropdown-menu">
                     <li><a href="/book?date=1">2014-03-28</a></li>
                     <li><a href="/book?date=2">2014-03-29</a></li>
                 </ul>
-                </li>
+                </li-->
                 <!--li><a href="#">Link</a></li-->
                 <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= user.name%><b class="caret"></b></a>
@@ -72,7 +79,9 @@
                     <li><a href="#">One more separated link</a></li>
                 </ul>
                 </li>
-                <li class="active"><a href="/logout">退出</a></li>
+                <a class="navbar-brand" href="/book">预定</a>
+                <a class="navbar-brand" href="/myorders">我的订单</a>
+                <a class="navbar-brand" href="/logout">退出</a>
             </ul>
             <% } %>
         </div><!--/.navbar-collapse -->

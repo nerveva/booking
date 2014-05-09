@@ -2,41 +2,6 @@ var crypto = require('crypto');
 var pg = require('pg');
 var settings = require('../settings.js');
 
-var cSchema = {
-    FieldId : String,
-    PlanDetailId : String,
-    StartTime : Number,
-    EndTime : Number,
-    ReserveStatus : Number, // 0 : free, 1 : lock, 2 : orderd
-    Price : Number,
-    DateTime : String,
-    LastModifyTime : Number,
-    LastModifyUser : String
-};
-
-exports.book = function(callback){
-
-    var self = this;
-    var t = new Date();
-    var m = {
-        ReserveStatus : 1,
-        LastModifyTime : t.getTime(),
-        LastModifyUser : this.user
-    }
-    courtModel.update({PlanDetailId : {"$in" : this.orders}, ReserveStatus : 0}, m, {multi:true},function(err, numAffected) {
-        if (err) {
-            callback(err);
-        }
-        if (numAffected != self.orders.length) {
-            console.log("N" + numAffected);
-            callback(null, -1);
-        }
-        else {
-            callback(null, 0);
-        }
-    });
-};
-
 exports.query = function(venue, dateTime, callback){
     var res = {};
     res["data"] = new Array();
@@ -49,31 +14,46 @@ exports.query = function(venue, dateTime, callback){
         t["EndTime"] = i + 1;
         res["tList"].push(t);
     }
-
-    var newCourts = new Array();
-    courtModel.find({FieldId : {"$in" : venue.FieldList}, DateTime : dateTime}, function(err, courts){
+    
+    pg.connect(settings.psqldb, function(err, client, done) {
         if (err) {
+            done(client);
             console.log(err);
             return callback(err);
         }
 
-        for(var i = 0; i < courts.length; ++i) {
-            var tmpC = {
-                FieldId : courts[i].FieldId,
-                PlanDetailId : courts[i].PlanDetailId,
-                StartTime : courts[i].StartTime,
-                EndTime : courts[i].EndTime,
-                ReserveStatus : courts[i].ReserveStatus,
-                Price : courts[i].Price,
-                DateTime : courts[i].DateTime,
-                sign : courts[i]._id
-            }
-            res["data"].push(tmpC);
+        var queryStr = "select * from " + settings.court_table + " where date_time='" + dateTime + "' and court_id in ";
+        var fields = "(";
+        for(var i  = 0; i < venue.FieldList.length; ++i) {
+            fields += "'" + venue.FieldList[i] + "',";
         }
+        fields = fields.substr(0, fields.length - 1) + ")";
 
-        res["total"] = courts.length;
-        res["status"] = 200;
-        return callback(null, res);
+        client.query(queryStr + fields, function(err, result) {
+            done(client);
+            if (err) {
+                console.log(err);
+                return callback(err);
+            }
+
+            for(var i = 0; i < result.rowCount; ++i){
+                var tmpC = {
+                    FieldId : result.rows[i].court_id,
+                    PlanDetailId : result.rows[i].plan_id,
+                    StartTime : result.rows[i].start_time,
+                    EndTime : result.rows[i].end_time,
+                    ReserveStatus : result.rows[i].status,
+                    Price : result.rows[i].price,
+                    DateTime : result.rows[i].date_time,
+                    sign : result.rows[i].plan_id
+                }
+                res["data"].push(tmpC);
+            }
+            res["total"] = result.rowCount;
+            res["status"] = 200;
+        
+            return callback(null, res);
+        });
     });
 };
 
@@ -112,10 +92,10 @@ exports.cancel = function(user, fieldList, callback) {
         }
 
         var fields = "(";
-        for (var f in fieldList) {
-            fields += f + ",";
+        for (var i = 0; i < fieldList.length; ++i) {
+            fields += fieldList[i] + ",";
         }
-        fields = fields.substr(fields.length - 1) + ")";
+        fields = fields.substr(0, fields.length - 1) + ")";
 
         var queryStr = "update " + settings.court_table + " set status=0 where last_user='" + user +"' and plan_id in " + fields;
         client.query(queryStr, function(err, result) {

@@ -23,15 +23,16 @@ exports.queryByCondiction = function(con, callback){
             return callback(err);
         }
         
-        var qStr = "select * from " + settings.court_order;
-        if (con.length > 0) {
-            qStr += " where ";
-            for(var k in con) {
-                qStr += k + "=" + con[k] + " and ";
-            }
-            qStr = qStr.substr(0, qStr.length - 5);
-
+        var qStr = "select * from " + settings.order_table;
+        var conStr = "";
+        for(var k in con) {
+            conStr += k + "='" + con[k] + "' and ";
         }
+        if (conStr.length > 0) {
+            conStr = " where " + conStr.substr(0, conStr.length - 5);
+        }
+        qStr += conStr;
+        
         client.query(qStr, function(err, result) {
             done(client);
             if (err) {
@@ -83,32 +84,44 @@ exports.newOrder = function(user, FieldIdList, TotalFee, callback) {
             return callback(err);
         }
         var fields = "(";
-        for(var i in FieldIdList) {
-            fields += "'" + i + "',";
+        for(var i  = 0; i < FieldIdList.length; ++i) {
+            fields += "'" + FieldIdList[i] + "',";
         }
         fields = fields.substr(0, fields.length-1) + ")";
-        var updateFields = "update " + settings.court_table + " set status=2,last_user=" + user 
-                           + " where plan_id in " + fields + " and status=1";
+        
+        var updateFields = "update " + settings.court_table + 
+                           " set status=1,last_time=current_timestamp(0)::timestamp without time zone,last_user='" + 
+                           user 
+                           + "' where plan_id in " + fields + " and status=0";
 
-        var newOrder = "insert into " + settings.order_table + "{order_user, order_time, courts_list, status} values(" + user + ",current_timestamp(0)::timestamp without time zone," + FieldIdList + ",status=1)";
+        var newOrder = "insert into " + settings.order_table + "(order_user, order_time, courts_list, total_price, status) values('" + user + "',current_timestamp(0)::timestamp without time zone,'" + FieldIdList.toString() + "'," + TotalFee + ",1)";
 
         client.query('BEGIN isolation level serializable', function(err) {
-            if (err)  
+            if (err) { 
+                console.log("begin");
                 return rollback(client, done, callback);
+            }
 
             client.query(updateFields, function(err, result) {
-                if (err)
+                if (err) {
+                    console.log("updateFields");
                     return rollback(client, done, callback);
-                if (result.rowCount != FieldIdList.length)
+                }
+                if (result.rowCount != FieldIdList.length) {
+                    console.log("rowCount");
                     return rollback(client, done, callback);
+                }
                 
                 client.query(newOrder, function(err, result) {
-                if (err)
+                if (err) {
+                    console.log("newOrder");
                     return rollback(client, done, callback);
+                }
+                console.log(result);
 
-                    client.query("COMMIT", function(err){
-                        done(client);
-                        return callback(null);
+                client.query("COMMIT", function(err){
+                    done(client);
+                    return callback(err);
                     });
                 }); 
             });
@@ -125,7 +138,8 @@ exports.cancel = function(user, orderId, callback) {
             console.log(err);
             return callback(err);
         }
-        var queryStr = "update " + settings.order_table + " set status=4 where order_user='" + user + "' and orderId=" + orderId;
+        var queryStr = "update " + settings.order_table + " set status=4 where order_user='" + user + "' and order_id=" + orderId;
+       console.log(queryStr);
        client.query(queryStr, function(err, result) {
            done(client);
            return callback(err);

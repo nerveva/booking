@@ -95,7 +95,7 @@ exports.initVenue = function(req, res) {
 
 exports.queryMyOrders = function(req, res) {
     var q = {
-        User : req.session.user.name
+        order_user : req.session.user.name
     };
     order.queryByCondiction(q, function(err, orders){ 
         if (err){
@@ -104,11 +104,11 @@ exports.queryMyOrders = function(req, res) {
         var tab = "";
         for(var i = 0; i < orders.length; ++i) {
             tab += "<tr>";
-            tab += "<td>" + orders[i].OrderId.toString() + "</td>";
-            tab += "<td>" + orders[i].FieldPlanIdList.toString() + "</td>";
-            tab += "<td>" + orders[i].TotalFee + "</td>";
-            tab += "<td><span class=\"label label-info\">" + StatusMap[orders[i].Status] + "</td>";
-            tab += "<td><a href=\"cancel?id=" + orders[i].OrderId.toString() + "\" class=\"btn mini purple\"><i class=\"icon-edit\"></i>取消</a></td>";
+            tab += "<td>" + orders[i].order_id + "</td>";
+            tab += "<td>" + orders[i].courts_list + "</td>";
+            tab += "<td>" + orders[i].total_price + "</td>";
+            tab += "<td><span class=\"label label-info\">" + StatusMap[orders[i].status] + "</td>";
+            tab += "<td><a href=\"cancel?id=" + orders[i].order_id.toString() + "\" class=\"btn mini purple\"><i class=\"icon-edit\"></i>取消</a></td>";
             tab += "</tr>";
         }
 
@@ -118,16 +118,18 @@ exports.queryMyOrders = function(req, res) {
 
 exports.cancel = function(req, res) {
     var q = {
-        User : req.session.user.name,
-        OrderId : req.query.id
+        order_user : req.session.user.name,
+        order_id : req.query.id
     };
     order.queryByCondiction(q, function(err, orders) {
         if (orders == 0) {
             return exports.queryMyOrders(req, res);
         }
+        console.log(orders);
 
-        court.cancel(req.session.user.name, orders[0].FieldPlanIdList, function(err) {
+        court.cancel(req.session.user.name, orders[0].courts_list.split(','), function(err) {
             if (err) {
+                console.log(err);
                 return exports.queryMyOrders(req, res);
             }
 
@@ -146,39 +148,18 @@ exports.book = function(req, res) {
     for(var i = 0; i < req.body.urlParm.length; ++i){
         fList.push(req.body.urlParm[i].pid);
     }
-    var c = new court(req.session.user.name, fList);
     var r = {};
-    c.book(function(err, results) {
+    order.newOrder(req.session.user.name, fList, req.body.totalPrice,function(err, results) {
         if (err) {
-            r["status"] = 400;
-            r.msg = "由于系统原因，预定失败";
+            r["staus"] = "403";
+            r.msg = "预定发生冲突\n请重新预定";
+            console.log(err);
             return res.send(r);
         }
         else {
-            if (results == 0) {
-                order.newOrder(req.session.user.name, fList, req.body.totalPrice, function(err, o){
-                    if (err) {
-                        c.rollBack(fList.length, function(err){
-                            //rollback
-                            r["staus"] = "403";
-                            r.msg = "由于系统原因，预定失败";
-                            return res.send(r);
-                        });
-                    }
-                    else {
-                        r["status"] = "200";
-                        r["url"] = o.OrderId.toString();
-                        return res.send(r);
-                    }
-                });
-            }
-            else {
-                c.rollBack(fList.length, function(err){
-                    r["staus"] = "403";
-                    r.msg = "预定发生冲突\n请重新预定";
-                    return res.send(r);
-                });
-            }
+            r["status"] = "200";
+            r["url"] = "xx";//o.OrderId.toString();
+            return res.send(r);
         }
     });
 }
