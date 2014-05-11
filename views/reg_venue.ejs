@@ -1,0 +1,75 @@
+<%- include header %>
+
+<div class="container">
+<div class="row">
+<div class="col-lg-10">
+<div class="widget wred">
+<div class="widget-content">
+<form class="form-horizontal" method="post">
+<div class="modal-header">
+<h4>场馆注册</h4>
+</div>
+<div class="modal-body">
+
+<div class = "form-group">                                       
+<label for = "username" class = "col-lg-2 control-label">场馆名称:</label>
+<div class = "col-lg-6">                                           
+<input type = "text" class = "form-control" id = "vname" name = "vname" placeholder = "场馆名称">
+</div>                                       
+</div>                                   
+
+<div class = "form-group">                                       
+<label for = "password" class = "col-lg-2 control-label">简介:</label>
+<div class = "col-lg-6">                                           
+<textarea class = "form-control" rows="3" id = "bintro" name = "bintro" placeholder = "地址/电话/场地个数"></textarea>
+</div>                                       
+</div>                                       
+
+<div class = "form-group">                                       
+<label for = "password" class = "col-lg-2 control-label">开馆时间:</label>
+<div class = "col-lg-6">                                           
+<input type = "text" class = "form-control" id = "stime" name = "stime" placeholder = "开馆时间">
+</div>                                       
+</div>                                       
+
+<div class = "form-group">                                       
+<label for = "password" class = "col-lg-2 control-label">闭馆时间:</label>
+<div class = "col-lg-6">                                           
+<input type = "text" class = "form-control" id = "etime" name = "etime" placeholder = "闭馆时间">
+</div>                                       
+</div>                                       
+
+<div class = "form-group">                                       
+<label for = "password" class = "col-lg-2 control-label">场地列表:</label>
+<div class = "col-lg-6">                                           
+<input type = "text" class = "form-control" id = "clist" name = "clist" placeholder = "场地列表">
+</div>                                       
+</div>                                       
+
+<div class = "form-group">                                       
+<label for = "password" class = "col-lg-2 control-label">价格策略:</label>
+<div class = "col-lg-6">                                           
+<input type = "text" class = "form-control" id = "price" name = "price" placeholder = "价格策略">
+</div>                                       
+</div>                                       
+
+<div class = "form-group">                                       
+<label for = "password" class = "col-lg-2 control-label">详细介绍:</label>
+<div class = "col-lg-6">                                           
+<textarea class = "form-control" id = "intro" name = "intro" placeholder = "详细介绍"></textarea>
+</div>                                       
+</div>                                       
+
+</div>
+
+<div class="modal-footer">
+<button class="btn btn-primary" type="submit" href="/regvenue">注册</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<%- include footer %>
+
