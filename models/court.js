@@ -6,9 +6,9 @@ exports.query = function(venue, dateTime, callback){
     var res = {};
     res["data"] = new Array();
     res["tList"] = new Array();
-    res["vList"] = venue.FieldNameList;
+    res["vList"] = new Array();
 
-    for (var i = venue.StartTime; i < venue.EndTime - 1; ++i) {
+    for (var i = venue.start_time; i < venue.end_time - 1; ++i) {
         var t = {};
         t["StartTime"] = i;
         t["EndTime"] = i + 1;
@@ -24,8 +24,11 @@ exports.query = function(venue, dateTime, callback){
 
         var queryStr = "select * from " + settings.court_table + " where date_time='" + dateTime + "' and court_id in ";
         var fields = "(";
-        for(var i  = 0; i < venue.FieldList.length; ++i) {
-            fields += "'" + venue.FieldList[i] + "',";
+        var cJson = JSON.parse(venue.court_list);
+        for(var i in cJson) {
+            fields += "'" + i + "',";
+            res["vList"].push({ FieldName :cJson[i],
+                                FieldId : i});
         }
         fields = fields.substr(0, fields.length - 1) + ")";
 
@@ -67,14 +70,15 @@ exports.init = function(venue, dateTime, callback){
 
         var queryStr = "insert into " + 
                        settings.court_table + 
-                       " (court_id, start_time, end_time, status, price, date_time) values ";
+                       " (court_id, start_time, end_time, venue_id, court_name, status, price, date_time) values ";
         var values = "";
-        for(var i = 0; i < venue.FieldList.length; ++i){
-            for(var j = venue.StartTime; j < venue.EndTime - 1; ++j){
-                values += "(" +venue.FieldList[i] + "," + j + "," + (j + 1).toString() + ",0," + venue.PricePolicy.BasePrice + ",'" + dateTime + "'),";
+        var cJson = JSON.parse(venue.court_list);
+        for(var i in cJson){
+            for(var j = venue.start_time; j < venue.end_time - 1; ++j){
+                values += "(" + i + "," + j + "," + (j + 1).toString()+ "," + venue.venue_id + ",'" + cJson[i] +"',0," + JSON.parse(venue.price_policy).base_price + ",'" + dateTime + "'),";
             };
         };
-        console.log(queryStr  + values.substr(0, values.length-1));
+        //console.log(queryStr  + values.substr(0, values.length-1));
 
         client.query(queryStr  + values.substr(0, values.length-1), function(err, result) {
             done(client);

@@ -1,42 +1,57 @@
 var crypto = require('crypto');
-var mongoose = require('mongoose');
+var pg = require('pg');
+var settings = require('../settings.js');
+var pgutil = require('./pg_util.js');
 
 var pricePolicy = {
-    BasePrice : Number
+    bp : Number,
+    bmp : Number,
+    sp: Number,
+    smp : Number
 };
-
-var fieldName = {
-    FieldId : String,
-    FieldName : String
-};
-
-var vSchema = {
-    VenueId : String,
-    VenueName : String,
-    FieldList : Array,
-    FieldNameList : Array,
-    StartTime : Number,
-    EndTime : Number,
-    PricePolicy : pricePolicy
-};
-
-var venueSchema = new mongoose.Schema(vSchema, {
-    collection: 'venues'
-});
-
-var venueModel = mongoose.model('Venue', venueSchema);
 
 exports.query = function(venueId, callback){
-    venueModel.findOne({VenueId : venueId}, function(err, v){
+    pg.connect(settings.psqldb, function(err, client, done) {
         if (err) {
+            done(client);
             console.log(err);
             return callback(err);
         }
-        return callback(null, v);
+
+        var queryStr = "select * from " + settings.venue_table + " where venue_id=" + venueId;
+        client.query(queryStr, function(err, res) {
+            done(client);
+            if (err) {
+                return callback(err);
+            }
+
+            if (res.rowCount  != 1) {
+                return callback("not found");
+            }
+
+            return callback(null, res.rows[0]);
+        });
     });
 };
 
-exports.update = function(venue, callback){
+exports.update = function(venue, callback) {
+};
+
+exports.newVenue = function(venue, callback) {
+    pg.connect(settings.psqldb, function(err, client, done) {
+        if (pgutil.handleErr(err, client, done)) {
+            return callback(err);
+        }
+
+        client.query(pgutil.genInsertStat(settings.venue_table, venue), function(err) {
+                done(client);
+                return callback(err);
+        });
+    });
+    
+};
+
+/*exports.update = function(venue, callback){
     var isNew = false;
     exports.query(venue.VenueId, function (err, tVenue) {
         console.log("query");
@@ -67,4 +82,4 @@ exports.update = function(venue, callback){
         callback(null);
     }
 };
-
+*/

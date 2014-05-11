@@ -1,5 +1,5 @@
 court = require('../models/court.js');
-venue = require('../models/venue.js');
+mvenue = require('../models/venue.js');
 order = require('../models/order.js')
 
 var StatusMap = {
@@ -24,12 +24,10 @@ function addDate(date,days){
 exports.show = function(req, res){
         var content = new String();
         var date = new Date();
-        
 
-        console.log(req.query.date);
         for (var i = 0; i < 7; ++i) {
             dateTime = addDate(date, i);
-            content = content + '<li><a href="javascript:void(0);" date="' + dateTime + '" onclick="QueryVenueFieldPlanDetail(1,\'' + dateTime + '\',\'1\')"';
+            content = content + '<li><a href="javascript:void(0);" date="' + dateTime + '" onclick="QueryVenueFieldPlanDetail(' + req.query.venue + ',\'' + dateTime + '\',\'1\')"';
 
             if (req.query.date == dateTime) {
                 content += ' class="on"';
@@ -43,7 +41,7 @@ exports.show = function(req, res){
 
 exports.query = function(req, res){
 
-    venue.query(req.params['venueId'], function(err, venueInfo) {
+    mvenue.query(req.params['venueId'], function(err, venueInfo) {
         if (err) {
             console.log(err);
             var resMap = {"status" : 404};
@@ -64,33 +62,22 @@ exports.query = function(req, res){
     });
 };
 
-exports.initVenue = function(req, res) {
-    var v = {
-        VenueId : "1",
-        VenueName : "xl'tennis venue",
-        FieldList : [1,2],
-        FieldNameList : [{FieldId : "1", FieldName : "11"}, {FieldId : "2", FieldName : "2"}],
-        StartTime :8,
-        EndTime : 22,
-        PricePolicy : {BasePrice : 100}
-    };
+exports.initCourt = function(req, res) {
 
-    venue.update(v, function(err) {
+    mvenue.query(req.query.venue, function(err, v) {
         if (err) {
             console.log(err);
-            res.send(err);
-            return;
+            return res.send(err);
         }
+        court.init(v, req.query.date, function(err){
+            if (err) {
+                console.log(err);
+                return res.send(err);
+            }
+            
+            return res.send('ok');
+        });
     });
-
-    court.init(v, req.query.date, function(err){
-        if (err)
-            console.log(err);
-            res.send(err);
-            return;
-    });
-
-    res.send('ok');
 };
 
 exports.queryMyOrders = function(req, res) {
@@ -121,25 +108,25 @@ exports.cancel = function(req, res) {
         order_user : req.session.user.name,
         order_id : req.query.id
     };
+    
+    order.cancel(req.session.user.name, req.query.id, function(err, num) {
+        return exports.queryMyOrders(req, res);
+    });
+        /*
     order.queryByCondiction(q, function(err, orders) {
         if (orders == 0) {
             return exports.queryMyOrders(req, res);
         }
-        console.log(orders);
-
         court.cancel(req.session.user.name, orders[0].courts_list.split(','), function(err) {
             if (err) {
                 console.log(err);
                 return exports.queryMyOrders(req, res);
             }
-
-            order.cancel(req.session.user.name, req.query.id, function(err, num) {
-                return exports.queryMyOrders(req, res);
             });
 
         });
+            */
 
-    });
 }
 
 exports.book = function(req, res) {

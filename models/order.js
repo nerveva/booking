@@ -76,6 +76,14 @@ var rollback = function(client, done, callback) {
   });
 };
 
+var getFields = function(FieldIdList) {
+    var fields = "(";
+    for(var i  = 0; i < FieldIdList.length; ++i) {
+        fields += "'" + FieldIdList[i] + "',";
+    }
+    return fields.substr(0, fields.length-1) + ")";
+}
+
 exports.newOrder = function(user, FieldIdList, TotalFee, callback) {
     pg.connect(settings.psqldb, function(err, client, done) {
         if (err) {
@@ -83,28 +91,23 @@ exports.newOrder = function(user, FieldIdList, TotalFee, callback) {
             console.log(err);
             return callback(err);
         }
-        var fields = "(";
-        for(var i  = 0; i < FieldIdList.length; ++i) {
-            fields += "'" + FieldIdList[i] + "',";
-        }
-        fields = fields.substr(0, fields.length-1) + ")";
         
         var updateFields = "update " + settings.court_table + 
                            " set status=1,last_time=current_timestamp(0)::timestamp without time zone,last_user='" + 
                            user 
-                           + "' where plan_id in " + fields + " and status=0";
+                           + "' where plan_id in " + getFields(FieldIdList) + " and status=0";
 
         var newOrder = "insert into " + settings.order_table + "(order_user, order_time, courts_list, total_price, status) values('" + user + "',current_timestamp(0)::timestamp without time zone,'" + FieldIdList.toString() + "'," + TotalFee + ",1)";
 
         client.query('BEGIN isolation level serializable', function(err) {
             if (err) { 
-                console.log("begin");
+                console.log(err);
                 return rollback(client, done, callback);
             }
 
             client.query(updateFields, function(err, result) {
                 if (err) {
-                    console.log("updateFields");
+                    console.log(err);
                     return rollback(client, done, callback);
                 }
                 if (result.rowCount != FieldIdList.length) {
@@ -114,7 +117,7 @@ exports.newOrder = function(user, FieldIdList, TotalFee, callback) {
                 
                 client.query(newOrder, function(err, result) {
                 if (err) {
-                    console.log("newOrder");
+                    console.log(err);
                     return rollback(client, done, callback);
                 }
                 console.log(result);
@@ -138,11 +141,44 @@ exports.cancel = function(user, orderId, callback) {
             console.log(err);
             return callback(err);
         }
-        var queryStr = "update " + settings.order_table + " set status=4 where order_user='" + user + "' and order_id=" + orderId;
-       console.log(queryStr);
-       client.query(queryStr, function(err, result) {
-           done(client);
-           return callback(err);
-       }); 
+        var queryOrderStr = "select courts_list from " + settings.order_table + " where order_user='" + user + "' and order_id=" + orderId;
+
+        var updateOrderStr = "update " + settings.order_table + " set status=4 where order_user='" + user + "' and order_id=" + orderId;
+       client.query(queryOrderStr, function(err, orderRes) {
+           if (err || orderRes.rowCount != 1) {
+               console.log(err);
+               done(client);
+               callback("err");
+           }
+           client.query("BEGIN", function(err) {
+               if(err) {
+                   console.log(err);
+                   return rollback(client, done, callback);
+               }
+
+               client.query(updateOrderStr, function(err) {
+                   if(err) {
+                       console.log(err);
+                       return rollback(client, done, callback);
+                   }
+                   var updateFields = "update " + settings.court_table + 
+                   " set status=0,last_time=current_timestamp(0)::timestamp without time zone,last_user='" + 
+                   user 
+                   + "' where plan_id in " + getFields(orderRes.rows[0].courts_list.split(','));
+
+                   client.query(updateFields, function(err) {
+                       if(err) {
+                           console.log(err);
+                           return rollback(client, done, callback);
+                       }
+
+                       client.query("COMMIT", function(err) {
+                           return callback(err);
+                       });
+                   });
+               });
+           }); 
+       
+       });
     });
 }

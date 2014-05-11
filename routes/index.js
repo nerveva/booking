@@ -2,6 +2,7 @@ register = require('./register.js')
 login = require('./login.js')
 court = require('./court.js')
 booking = require('./booking.js')
+venue = require('./venue.js')
 
 module.exports = function(app){
     app.get('/', index);
@@ -10,8 +11,9 @@ module.exports = function(app){
     app.get('/login', login.login);
     app.post('/login', login.doLogin);
     app.get('/logout', login.logout);
-    app.get('/initcourt', court.init);
-    app.get('/initvenue', booking.initVenue);
+    app.get('/initcourt', booking.initCourt);
+    app.get('/regvenue', venue.showNewVenue);
+    app.post('/regvenue', venue.regVenue);
     app.get('/book', booking.show);
     app.get('/myorders', booking.queryMyOrders);
     app.get('/venue/:venueId', booking.query);

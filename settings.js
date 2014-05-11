@@ -5,5 +5,6 @@ module.exports = {
     psqldb: 'tcp://nerv:123456@localhost/orderdb',
     order_table : "court_order",
     court_table : "court",
-    user_table : "user_table"
+    user_table : "user_table",
+    venue_table : "venue"
 }; 
