@@ -30,3 +30,28 @@ exports.regVenue = function(req, res) {
     });
 
 }
+
+exports.getVenues = function(req, res) {
+    mvenue.queryAll(function(err, results) {
+        var ret = {};
+        if (err) {
+            ret[s] = 401
+            return res.send(ret);
+        }
+        ret["total"] = results.length;
+        ret["data"] = new Array;
+        for(var i = 0; i < results.length; ++i) {
+            var v = {
+                n : results[i].venue_name,
+                img : "xxx.jpg",
+                i : results[i].brief_intro,
+                vid : results[i].venue_id,
+                p : results[i].price_policy
+            }; 
+            ret["data"].push(v);
+        }
+        ret["s"] = 200;
+
+        return res.send(ret);
+    });
+}

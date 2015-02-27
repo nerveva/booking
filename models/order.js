@@ -1,6 +1,8 @@
 var crypto = require('crypto');
 var pg = require('pg');
 var settings = require('../settings.js');
+var orderid = require('./order_id.js');
+var calPrice = require('./price_cal.js');
 
 
 var vSchema = {
@@ -84,7 +86,7 @@ var getFields = function(FieldIdList) {
     return fields.substr(0, fields.length-1) + ")";
 }
 
-exports.newOrder = function(user, FieldIdList, TotalFee, callback) {
+exports.newOrder = function(user, venue, FieldIdList, callback) {
     pg.connect(settings.psqldb, function(err, client, done) {
         if (err) {
             done(client);
@@ -92,12 +94,38 @@ exports.newOrder = function(user, FieldIdList, TotalFee, callback) {
             return callback(err);
         }
         
-        var updateFields = "update " + settings.court_table + 
-                           " set status=1,last_time=current_timestamp(0)::timestamp without time zone,last_user='" + 
-                           user 
-                           + "' where plan_id in " + getFields(FieldIdList) + " and status=0";
+    var insertCourts = "insert into " +
+        settings.court_table +
+        " (plan_id, court_id, start_time, end_time, venue_id, status, price, date_time) values ";
 
-        var newOrder = "insert into " + settings.order_table + "(order_user, order_time, courts_list, total_price, status) values('" + user + "',current_timestamp(0)::timestamp without time zone,'" + FieldIdList.toString() + "'," + TotalFee + ",1)";
+    var values = "";
+    var totalFee = 0;
+    var fInfo = JSON.parse(venue.court_list);
+    var cInfo = {};
+    cInfo["vname"] = venue.venue_name;
+    cInfo["date"] = FieldIdList[0].d;
+    cInfo["list"] = new Array();
+    for(var i  = 0; i < FieldIdList.length; ++i){
+        var price = calPrice(venue.price_policy, FieldIdList[i].s, FieldIdList[i].d);
+        values += "('" + FieldIdList[i].p + "'," + FieldIdList[i].c + "," + FieldIdList[i].s + "," +(parseInt(FieldIdList[i].s) + 1) + "," + venue.venue_id + "," + "2," + price + ",'" + FieldIdList[i].d + "'),";
+        totalFee += price;
+        var f = {
+            fname : fInfo[FieldIdList[i].c],
+            p : price,
+            st : FieldIdList[i].s,
+            et: (parseInt(FieldIdList[i].s) + 1)
+        };
+        cInfo["list"].push(f);
+    }
+
+    insertCourts += values.substr(0, values.length - 1);
+
+    orderid.getId(function(err, oid) {
+        if (err) {
+            callback(err);
+        }
+
+        var newOrder = "insert into " + settings.order_table + "(order_id ,order_user, order_time, venue_id, courts_list, total_price, status) values('" + oid + "','" + user + "',current_timestamp(0)::timestamp without time zone," +venue.venue_id + ",'" + JSON.stringify(cInfo) + "'," + totalFee + ",1)";
 
         client.query('BEGIN isolation level serializable', function(err) {
             if (err) { 
@@ -105,31 +133,31 @@ exports.newOrder = function(user, FieldIdList, TotalFee, callback) {
                 return rollback(client, done, callback);
             }
 
-            client.query(updateFields, function(err, result) {
+            client.query(insertCourts, function(err, result) {
                 if (err) {
                     console.log(err);
                     return rollback(client, done, callback);
                 }
                 if (result.rowCount != FieldIdList.length) {
-                    console.log("rowCount");
-                    return rollback(client, done, callback);
-                }
-                
-                client.query(newOrder, function(err, result) {
-                if (err) {
                     console.log(err);
                     return rollback(client, done, callback);
                 }
-                console.log(result);
 
-                client.query("COMMIT", function(err){
-                    done(client);
-                    return callback(err);
+                client.query(newOrder, function(err, result) {
+                    if (err) {
+                        console.log(err);
+                        return rollback(client, done, callback);
+                    }
+                    
+                    client.query("COMMIT", function(err){
+                        done(client);
+                        return callback(err, oid);
                     });
                 }); 
             });
 
         });
+    });
     });
 
 }

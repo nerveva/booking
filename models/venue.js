@@ -10,6 +10,26 @@ var pricePolicy = {
     smp : Number
 };
 
+exports.queryAll = function(callback) {
+    pg.connect(settings.psqldb, function(err, client, done) {
+        if (err) {
+            done(client);
+            console.log(err);
+            return callback(err);
+        }
+
+        var queryStr = "select * from " + settings.venue_table;
+        client.query(queryStr, function(err, res) {
+            done(client);
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(null, res.rows);
+        });
+    });
+}
+
 exports.query = function(venueId, callback){
     pg.connect(settings.psqldb, function(err, client, done) {
         if (err) {

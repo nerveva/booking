@@ -1,6 +1,7 @@
 court = require('../models/court.js');
 mvenue = require('../models/venue.js');
 order = require('../models/order.js')
+var calPrice = require('../models/price_cal.js')
 
 var StatusMap = {
     1 : "未付款",
@@ -49,14 +50,65 @@ exports.query = function(req, res){
             return;
         }
 
-        court.query(venueInfo, req.query.datetime, function(err, allCourts) {
+        court.query(venueInfo, req.params['datetime'], function(err, all, count) {
             if (err) {
                 console.log(err);
                 var resMap = {"status" : 404};
                 res.send(resMap.toString());
                 return;
             }
-            res.send(allCourts);
+            var retjson = {};
+            retjson["data"] = new Array();
+            retjson["vList"] = new Array();
+            
+            var cJson = JSON.parse(venueInfo.court_list);
+            var cList = new Array();
+            for(var i in cJson) {
+                retjson["vList"].push({ FieldName :cJson[i],
+                    FieldId : i});
+                cList.push(i);
+            }
+
+            var pList = new Array();
+            retjson["st"] = venueInfo.start_time;
+            retjson["et"] = venueInfo.end_time
+
+            for(var i = 0; i < all.length; ++i) {
+                var tmpC = {
+                    fid : all[i].court_id,
+                    pid : all[i].plan_id,
+                    st : all[i].start_time,
+                    et : all[i].end_time,
+                    s : all[i].status,
+                    p : all[i].price,
+                    dt : req.params['datetime']
+                }
+                retjson["data"].push(tmpC);
+                pList.push(all[i].plan_id);
+            }
+
+            for (var i = venueInfo.start_time; i < venueInfo.end_time; ++i) {
+                for(var j = 0; j < cList.length; ++j){
+                    var id = req.params['datetime'] 
+                        + "-" + venueInfo.venue_id
+                        + "-" + cList[j] + "-" + i;
+                    if (pList.indexOf(id) == -1) {
+                        var tmpC = {
+                            fid : cList[j],
+                            pid : id,
+                            st : i,
+                            et : i + 1,
+                            s : 0,
+                            p : calPrice(venueInfo.price_policy, i, req.query.datetime),
+                            dt : req.query.datetime
+                        }
+                        retjson["data"].push(tmpC);
+                    }
+                }
+            }
+            retjson["total"] = cList.length * (venueInfo.end_time - venueInfo.start_time - 1);
+            retjson["status"] = 200;
+            return res.send(retjson);
         });
 
     });
@@ -88,18 +140,21 @@ exports.queryMyOrders = function(req, res) {
         if (err){
             return res.redirect('/');
         }
-        var tab = "";
-        for(var i = 0; i < orders.length; ++i) {
-            tab += "<tr>";
-            tab += "<td>" + orders[i].order_id + "</td>";
-            tab += "<td>" + orders[i].courts_list + "</td>";
-            tab += "<td>" + orders[i].total_price + "</td>";
-            tab += "<td><span class=\"label label-info\">" + StatusMap[orders[i].status] + "</td>";
-            tab += "<td><a href=\"cancel?id=" + orders[i].order_id.toString() + "\" class=\"btn mini purple\"><i class=\"icon-edit\"></i>取消</a></td>";
-            tab += "</tr>";
-        }
 
-        res.render('myorders',{'my_orders_table' : tab});
+        var retJson = {};
+        retJson["total"] = orders.length;
+        retJson["data"] = new Array; 
+        for(var i = 0; i < orders.length; ++i) {
+            var o = {
+                oid : orders[i].order_id,
+                f : orders[i].courts_list,
+                s : StatusMap[orders[i].status],
+                p : orders[i].total_price  
+            };
+            retJson["data"].push(o);
+
+        }
+        res.send(retJson);
     });
 }
 
@@ -130,23 +185,30 @@ exports.cancel = function(req, res) {
 }
 
 exports.book = function(req, res) {
-    var fList = new Array();
-
-    for(var i = 0; i < req.body.urlParm.length; ++i){
-        fList.push(req.body.urlParm[i].pid);
+    if (!req.body.urlParm || req.body.urlParm.length == 0) {
+        r["staus"] = "405";
+        r.msg = "非法订单,预定失败";
     }
     var r = {};
-    order.newOrder(req.session.user.name, fList, req.body.totalPrice,function(err, results) {
+
+    console.log(req.body);
+    mvenue.query(req.params['venueId'], function(err, venueInfo) {
         if (err) {
-            r["staus"] = "403";
-            r.msg = "预定发生冲突\n请重新预定";
-            console.log(err);
-            return res.send(r);
+            r["staus"] = "404";
+            r.msg = "预定场馆不存在";
         }
-        else {
-            r["status"] = "200";
-            r["url"] = "xx";//o.OrderId.toString();
-            return res.send(r);
-        }
+        order.newOrder(req.session.user.name, venueInfo, req.body.urlParm, function(err, results) {
+            if (err) {
+                r["staus"] = "403";
+                r.msg = "预定发生冲突\n请重新预定";
+                console.log(err);
+                return res.send(r);
+            }
+            else {
+                r["status"] = "200";
+                r["url"] = "www.alipay/" + results;//o.OrderId.toString();
+                return res.send(r);
+            }
+        });
     });
 }

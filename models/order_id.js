@@ -19,7 +19,6 @@ exports.getId = function(callback){
             return callback(err);
         }
         callback(null, oId.OrderId);
-        console.log(oId.OrderId);
     });
 };
 
